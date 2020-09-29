@@ -4,12 +4,12 @@ import { MyContext } from "src/types";
 
 @Resolver()
 export class PostResolver {
-  @Query(() => [Post])
+  @Query(() => [Post]) // ALL POSTS
   posts(@Ctx() { em }: MyContext): Promise<Post[]> {
     return em.find(Post, {});
   }
 
-  @Query(() => Post, { nullable: true })
+  @Query(() => Post, { nullable: true }) // FIND ONE POST
   post(
     @Arg("id") id: number, // The string id in this line is what we call the args in the GraphQL browser.
     @Ctx() { em }: MyContext
@@ -17,7 +17,7 @@ export class PostResolver {
     return em.findOne(Post, { id }); // Finds the post with the id and returns it
   }
 
-  @Mutation(() => Post)
+  @Mutation(() => Post) // ADD A POST
   async createPost(
     @Arg("title") title: string,
     @Ctx() { em }: MyContext
@@ -27,7 +27,7 @@ export class PostResolver {
     return post;
   }
 
-  @Mutation(() => Post)
+  @Mutation(() => Post) // UPDATE A POST
   async updatePost(
     @Arg("id") id: number,
     @Arg("title", () => String, { nullable: true }) title: string,
@@ -44,5 +44,18 @@ export class PostResolver {
       await em.persistAndFlush(post);
     }
     return post; // Return post
+  }
+
+  @Mutation(() => Boolean) // DELETE A POST
+  async deletePost(
+    @Arg("id") id: number, // Pass in ID of post to delete
+    @Ctx() { em }: MyContext
+  ): Promise<boolean> {
+    try {
+      await em.nativeDelete(Post, { id }); // Try deleting
+    } catch {
+      return false; // Return false if ID not found
+    }
+    return true; // Post is deleted
   }
 }
