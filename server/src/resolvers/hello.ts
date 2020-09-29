@@ -1,9 +1,9 @@
 import { Query, Resolver } from "type-graphql";
 
-@Resolver()
+@Resolver() // Test run query
 export class HelloResolver {
-  @Query(() => String)
+  @Query(() => String) // Sets query or mutation and passes the type that the function returns
   hello() {
-    return "Hello world";
+    return "Hello s";
   }
 }
