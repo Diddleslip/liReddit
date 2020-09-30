@@ -1,10 +1,10 @@
 import { Entity, PrimaryKey, Property } from "@mikro-orm/core";
-import { Field, ObjectType } from "type-graphql";
+import { Field, Int, ObjectType } from "type-graphql";
 
 @ObjectType() // Initializes class for GraphQL
 @Entity()
 export class User {
-  @Field() // Add Field to the columns in order for GraphQL to have access to them in queries
+  @Field(() => Int) // Add Field to the columns in order for GraphQL to have access to them in queries
   @PrimaryKey()
   id!: number;
 
