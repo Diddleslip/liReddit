@@ -1,13 +1,12 @@
-import "reflect-metadata";
-import { MikroORM } from "@mikro-orm/core"; // First
+import "reflect-metadata"; // First
 import { __prod__ } from "./constants";
-// import { Post } from "./entities/Post";
+import { MikroORM } from "@mikro-orm/core";
 import microConfig from "./mikro-orm.config";
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
 
-// Resolvers
+// -- Resolvers
 import { HelloResolver } from "./resolvers/hello";
 import { PostResolver } from "./resolvers/post";
 import { UserResolver } from "./resolvers/user";
