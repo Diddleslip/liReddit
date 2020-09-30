@@ -9,7 +9,7 @@ import {
   Resolver,
 } from "type-graphql";
 import { MyContext } from "src/types";
-import { User } from "./../entities/User";
+import { User } from "../entities/User";
 import argon2 from "argon2";
 
 @InputType() // InputTypes we use for @Arguements
@@ -40,6 +40,7 @@ class UserResponse {
 export class UserResolver {
   @Query(() => User, { nullable: true })
   async me(@Ctx() { req, em }: MyContext) {
+    console.log("THIS IS SESSION: ", req.session);
     // This query returns who you are based on cookies
     if (!req.session.userId) {
       return null;
@@ -138,6 +139,7 @@ export class UserResolver {
     }
 
     req.session.userId = user.id;
+    // req.session.randomKey = "asd123"; -- We can add as many key/value pairs to session object
 
     return { user };
   }
