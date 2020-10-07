@@ -49,5 +49,9 @@ https://react.semantic-ui.com/usage
 `
 
 `
+Life
+`
+
+`
 https://www.npmjs.com/package/react-alice-carousel
 `
